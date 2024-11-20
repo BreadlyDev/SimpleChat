@@ -21,11 +21,12 @@ type Server struct {
 }
 
 type DB struct {
-	Host   string `yaml:"host" env-default:"localhost" env-required:"true"`
-	Port   int    `yaml:"port" env-default:"5432" env-required:"true"`
-	DBName string `yaml:"db_name" env-required:"true"`
-	User   string `yaml:"user" env-required:"true"`
-	Pass   string `yaml:"pass" env-required:"true"`
+	Host    string `yaml:"host" env-default:"localhost" env-required:"true"`
+	Port    int    `yaml:"port" env-default:"5432" env-required:"true"`
+	DBName  string `yaml:"db_name" env-required:"true"`
+	User    string `yaml:"user" env-required:"true"`
+	Pass    string `yaml:"pass" env-required:"true"`
+	SSLMode string `yaml:"ssl_mode" env-default:"disable" env-required:"true"`
 }
 
 func MustLoad() *Config {

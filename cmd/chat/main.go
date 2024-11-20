@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"log/slog"
 	"os"
 	"simplechat/internal/config"
+	"simplechat/internal/lib/logger/sl"
+	"simplechat/internal/storage/postgres"
 )
 
 const (
@@ -19,19 +20,28 @@ func main() {
 	log := setupLogger(cfg.Env)
 
 	log.Info(
-		"starting simple-chat",
+		"starting simple-chat application",
 		slog.String("env", cfg.Env),
 	)
 
-	fmt.Println(cfg)
+	storage, err := postgres.New(&cfg.Storage)
+	if err != nil {
+		log.Error("failed to init storage", sl.Err(err))
+		os.Exit(1)
+	}
 
-	// TODO: Setup Logger
+	err = storage.Ping()
+	if err != nil {
+		log.Error("failed to connect to database", sl.Err(err))
+	} else {
+		log.Info("successful connection")
+	}
 
-	// TODO: Initialize Storage
+	_ = storage
+
+	// TODO: Add Migrator & Migrations
 
 	// TODO: Initialize Server
-
-	// TODO: Add Migrator
 
 	// TODO: Initialize App
 
