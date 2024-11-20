@@ -1,0 +1,13 @@
+env: "local"
+token_ttl: 1h
+
+storage:
+  host: "localhost" 
+  port: 5432
+  db_name: "simple_chat"
+  user: "postgres"
+  pass: "postgres"
+
+http_server:
+  host: "localhost"
+  port: 3000
