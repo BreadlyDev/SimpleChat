@@ -4,3 +4,5 @@ CREATE TABLE IF NOT EXISTS users(
     username VARCHAR(255),
     pass_hash BYTEA
 );
+
+CREATE INDEX idx_unique_email ON users(email);

@@ -12,13 +12,13 @@ import (
 )
 
 func main() {
-	var migrationsPath, migrationsTable, DBUrl string
-	migrationsPath = "./migrations"
-	migrationsTable = "migrations"
+	migrationsPath := "./migrations"
 
-	cfg := &config.MustLoad().Storage
+	migrationsTable := "migrations"
 
-	DBUrl = fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable&x-migrations-table=%s",
+	cfg := config.MustLoad().Storage
+
+	DBUrl := fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable&x-migrations-table=%s",
 		cfg.User, cfg.Pass, cfg.Host, cfg.Port, cfg.DBName, migrationsTable)
 
 	m, err := migrate.New(
