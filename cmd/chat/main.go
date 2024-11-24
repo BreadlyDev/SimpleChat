@@ -6,18 +6,13 @@ import (
 	"simplechat/internal/config"
 	"simplechat/internal/lib/logger/sl"
 	"simplechat/internal/storage/postgres"
-)
-
-const (
-	envLocal = "local"
-	envDev   = "dev"
-	envProd  = "prod"
+	"simplechat/internal/utils/logger"
 )
 
 func main() {
 	cfg := config.MustLoad()
 
-	log := setupLogger(cfg.Env)
+	log := logger.SetupLogger(cfg.Env)
 
 	log.Info(
 		"starting simple-chat application",
@@ -39,35 +34,7 @@ func main() {
 
 	_ = storage
 
-	// TODO: Add Migrator & Migrations
-
 	// TODO: Initialize Server
 
-	// TODO: Initialize App
-
 	// TODO: ...
-}
-
-func setupLogger(env string) *slog.Logger {
-	var log *slog.Logger
-	switch env {
-	case envLocal:
-		log = slog.New(
-			slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}),
-		)
-	case envDev:
-		log = slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}),
-		)
-	case envProd:
-		log = slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}),
-		)
-	default:
-		log = slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}),
-		)
-	}
-
-	return log
 }
